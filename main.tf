@@ -34,7 +34,11 @@ terraform {
 	}
   resource "aws_s3_bucket_versioning" "bucket_versioning" {
 		bucket = aws_s3_bucket.terraform_state.id
-		
+		mfa = "arn:aws:iam::960311281228:mfa/s3vivo 300988"
+  		versioning_configuration {
+			status = "Enabled"
+			mfa_delete = "Enabled"
+  		}
   	}
   
   
