@@ -11,18 +11,11 @@ data "aws_vpc" "default" {
 resource "aws_instance" "servidor_demo" {
   ami                     = "ami-0aef57767f5404a3c"
   instance_type           = "t2.micro"
-  disable_api_termination = true
+  disable_api_termination = false
   iam_instance_profile = "test"
   monitoring = true
   ebs_optimized = true
-  root_block_device {
-    encrypted             = true
-    delete_on_termination = true
-  }
-  metadata_options{
-    http_endpoint = "enabled"
-    http_tokens = "required"
-  }
+
   vpc_security_group_ids  = [aws_security_group.mi_grupo_de_seguridad.id]
 
   // Escribimos un "here document" que es
@@ -47,7 +40,7 @@ resource "aws_security_group" "mi_grupo_de_seguridad" {
   description = "Security group of instance servidor-1"
   ingress {
     description = "Acceso al puerto 8080 desde el exterior"
-    cidr_blocks = ["0.0.0.0/24"]
+    cidr_blocks = ["0.0.0.0/0"]
     from_port   = 8080
     to_port     = 8080
     protocol    = "TCP"
