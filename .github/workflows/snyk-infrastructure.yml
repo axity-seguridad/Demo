@@ -20,6 +20,6 @@ jobs:
       run: npm install -g snyk
 
     - name: Run Snyk IaC scan on 'test' directory
-      run: snyk iac test .
+      run: snyk iac test . -d
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
